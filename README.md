@@ -1,3 +1,4 @@
+![CI](https://github.com/hoangnd25/robo_sim_php/workflows/CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/hoangnd25/robo_sim_php/badge.svg)](https://coveralls.io/github/hoangnd25/robo_sim_php)
 
 Robot Simulator
