@@ -26,5 +26,11 @@ jobs:
             - name: Install dependencies
               run: composer install
 
+            - name: phpcs
+              run: ./vendor/bin/phpcs
+
+            - name: phpstan
+              run: ./vendor/bin/phpstan analyze
+
             - name: PHPUnit tests
               run: ./vendor/bin/phpunit --testdox -c phpunit.xml.dist
