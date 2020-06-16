@@ -24,7 +24,7 @@ jobs:
                   php -r "unlink('composer-setup.php');"
 
             - name: Install dependencies
-              run: composer install
+              run: composer install --dev --no-interaction
 
             - name: phpcs
               run: ./vendor/bin/phpcs
@@ -33,4 +33,9 @@ jobs:
               run: ./vendor/bin/phpstan analyze
 
             - name: PHPUnit tests
-              run: ./vendor/bin/phpunit --testdox -c phpunit.xml.dist
+              run: ./vendor/bin/phpunit --testdox -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
+
+            - name: Upload test coverage
+              run: ./vendor/bin/php-coveralls
+              env:
+                  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}

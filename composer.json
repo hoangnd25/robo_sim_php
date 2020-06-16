@@ -13,7 +13,8 @@
         "symfony/var-dumper": "^4.4",
         "phpstan/phpstan-strict-rules": "^0.12.2",
         "phpunit/php-code-coverage": "^8.0",
-        "phpunit/phpcov": "^7.0"
+        "phpunit/phpcov": "^7.0",
+        "php-coveralls/php-coveralls": "^2.2"
     },
     "license": "MIT",
     "authors": [
