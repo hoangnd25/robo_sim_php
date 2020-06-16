@@ -5,35 +5,19 @@ on: [push, pull_request]
 
 jobs:
     unit-test:
-        runs-on: [ubuntu-latest]
+        runs-on: [php:7.4-cli]
 
         steps:
             - uses: actions/checkout@v1
 
-            - name: Get Composer Cache Directory
-              id: composer-cache
+            - name: Get composer
               run: |
-                  echo "::set-output name=dir::$(composer config cache-files-dir)"
+                  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+                  php composer-setup.php --install-dir=/usr/bin --filename=composer
+                  php -r "unlink('composer-setup.php');"
 
-            - name: Cache Composer Downloads
-              uses: actions/cache@v1
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
-
-            - name: Cache PHP dependencies
-              uses: actions/cache@v1
-              with:
-                  path: vendor
-                  key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
-
-            - uses: php-actions/composer@v1
+            - name: Install dependencies
+              run: composer install
 
             - name: PHPUnit tests
-              uses: php-actions/phpunit@v1
-              with:
-                  config: phpunit.xml.dist
-                  memory: 256M
-                  bootstrap: tests/bootstrap.php
+              run: ./vendor/bin/phpunit --testdox -c phpunit.xml.dist
