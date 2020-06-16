@@ -5,10 +5,17 @@ on: [push, pull_request]
 
 jobs:
     unit-test:
-        runs-on: [php:7.4-cli]
+        runs-on: [ubuntu-latest]
 
         steps:
             - uses: actions/checkout@v1
+
+            - name: Install PHP
+              run: |
+                  sudo apt-get install software-properties-common
+                  sudo add-apt-repository ppa:ondrej/php
+                  sudo apt-get update
+                  sudo apt-get install -y php7.4
 
             - name: Get composer
               run: |
