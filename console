@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use RobotSimulator\RobotSimulator;
+use RobotSimulator\Service\SimpleCommandParser;
+use RobotSimulator\Service\SimpleManipulator;
+use Symfony\Component\Console\Application;
+
+// dependencies should be injected via a container instead
+$robotCommand = new RobotSimulator(
+    new SimpleManipulator(),
+    new SimpleCommandParser()
+);
+
+$application = new Application();
+$application->addCommands([$robotCommand]);
+// this is entry point for the application
+$application->run();
